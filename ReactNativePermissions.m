@@ -10,9 +10,9 @@
 
 #import "ReactNativePermissions.h"
 
-#import <React/RCTBridge.h>
-#import <React/RCTConvert.h>
-#import <React/RCTEventDispatcher.h>
+#import "RCTBridge.h"
+#import "RCTConvert.h"
+#import "RCTEventDispatcher.h"
 
 #import "RNPLocation.h"
 #import "RNPBluetooth.h"
@@ -42,7 +42,7 @@ RCT_EXPORT_MODULE();
 {
     if (self = [super init]) {
     }
-    
+
     return self;
 }
 
@@ -70,9 +70,9 @@ RCT_EXPORT_METHOD(openSettings)
 RCT_REMAP_METHOD(getPermissionStatus, getPermissionStatus:(RNPType)type json:(id)json resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSString *status;
-    
+
     switch (type) {
-            
+
         case RNPTypeLocation: {
             NSString *locationPermissionType = [RCTConvert NSString:json];
             status = [RNPLocation getStatusForType:locationPermissionType];
@@ -118,7 +118,7 @@ RCT_REMAP_METHOD(getPermissionStatus, getPermissionStatus:(RNPType)type json:(id
 RCT_REMAP_METHOD(requestPermission, permissionType:(RNPType)type json:(id)json resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSString *status;
-    
+
     switch (type) {
         case RNPTypeLocation:
             return [self requestLocation:json resolve:resolve];
@@ -143,7 +143,7 @@ RCT_REMAP_METHOD(requestPermission, permissionType:(RNPType)type json:(id)json r
         default:
             break;
     }
-    
+
 
 }
 
@@ -152,31 +152,31 @@ RCT_REMAP_METHOD(requestPermission, permissionType:(RNPType)type json:(id)json r
     if (self.locationMgr == nil) {
         self.locationMgr = [[RNPLocation alloc] init];
     }
-    
+
     NSString *type = [RCTConvert NSString:json];
-    
+
     [self.locationMgr request:type completionHandler:resolve];
 }
 
 - (void) requestNotification:(id)json resolve:(RCTPromiseResolveBlock)resolve
 {
     NSArray *typeStrings = [RCTConvert NSArray:json];
-    
+
     UIUserNotificationType types;
     if ([typeStrings containsObject:@"alert"])
         types = types | UIUserNotificationTypeAlert;
-    
+
     if ([typeStrings containsObject:@"badge"])
         types = types | UIUserNotificationTypeBadge;
-    
+
     if ([typeStrings containsObject:@"sound"])
         types = types | UIUserNotificationTypeSound;
-    
-    
+
+
     if (self.notificationMgr == nil) {
         self.notificationMgr = [[RNPNotification alloc] init];
     }
-    
+
     [self.notificationMgr request:types completionHandler:resolve];
 
 }
@@ -187,7 +187,7 @@ RCT_REMAP_METHOD(requestPermission, permissionType:(RNPType)type json:(id)json r
     if (self.bluetoothMgr == nil) {
         self.bluetoothMgr = [[RNPBluetooth alloc] init];
     }
-    
+
     [self.bluetoothMgr request:resolve];
 }
 
