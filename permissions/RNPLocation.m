@@ -52,7 +52,7 @@
         }
     } else {
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse && [type isEqualToString:@"always"]) {
-            completionHandler(RNPStatusDenied);
+            [self.locationManager requestAlwaysAuthorization];
         } else {
             completionHandler(status);
         }
