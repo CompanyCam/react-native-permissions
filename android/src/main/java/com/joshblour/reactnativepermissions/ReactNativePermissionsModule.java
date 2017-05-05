@@ -4,10 +4,10 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
-import android.support.v7.app.ActivityCompat;
-import android.support.v7.app.NotificationManagerCompat;
-import android.support.v7.content.ContextCompat;
-import android.support.v7.content.PermissionChecker;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
